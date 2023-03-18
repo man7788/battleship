@@ -31,9 +31,34 @@ const Gameboard = () => {
     return grid;
   };
 
-  const placeShip = (x, y, length) => {
-    const target = findGrid(fullBoard, x, y);
-    target.ship = Ship(length);
+  const placeShip = (x, y, length, orient, count = 0) => {
+    if (count === length) {
+      return;
+    }
+
+    if (x + length > 9 || y + length > 9) {
+      return 'Ship over border';
+    }
+
+    if (findGrid(fullBoard, x, y).ship !== undefined) {
+      return 'Space already taken';
+    }
+
+    if (orient === 'vertical') {
+      const target = findGrid(fullBoard, x, y);
+      if (x + length <= 9) {
+        target.ship = Ship(length);
+        return placeShip(x + 1, y, length, orient, count + 1);
+      }
+    }
+    if (orient === 'horizontal') {
+      const target = findGrid(fullBoard, x, y);
+      if (y + length <= 9) {
+        target.ship = Ship(length);
+        return placeShip(x, y + 1, length, orient, count + 1);
+      }
+    }
+
     return fullBoard;
   };
 
