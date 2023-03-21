@@ -31,6 +31,21 @@ const Gameboard = () => {
     return grid;
   };
 
+  const surveyGrid = (x, y, length, orient, count = 0) => {
+    if (count === length) {
+      return true;
+    }
+    if (findGrid(fullBoard, x, y).ship === undefined) {
+      if (orient === 'vertical') {
+        return surveyGrid(x + 1, y, length, orient, count + 1);
+      }
+      if (orient === 'horizontal') {
+        return surveyGrid(x, y + 1, length, orient, count + 1);
+      }
+    }
+    return false;
+  };
+
   const placeShip = (x, y, length, orient, count = 0) => {
     if (count === length) {
       return;
@@ -41,21 +56,28 @@ const Gameboard = () => {
     }
 
     if (findGrid(fullBoard, x, y).ship !== undefined) {
-      return 'Space already taken';
+      return `Space already taken`;
     }
 
     if (orient === 'vertical') {
-      const target = findGrid(fullBoard, x, y);
-      if (x + length <= 9) {
+      if (surveyGrid(x, y, length, 'vertical') === true) {
+        const target = findGrid(fullBoard, x, y);
         target.ship = Ship(length);
         return placeShip(x + 1, y, length, orient, count + 1);
       }
+      if (surveyGrid(x, y, length, 'vertical') === false) {
+        return `Space already taken`;
+      }
     }
+
     if (orient === 'horizontal') {
-      const target = findGrid(fullBoard, x, y);
-      if (y + length <= 9) {
+      if (surveyGrid(x, y, length, 'horizontal') === true) {
+        const target = findGrid(fullBoard, x, y);
         target.ship = Ship(length);
         return placeShip(x, y + 1, length, orient, count + 1);
+      }
+      if (surveyGrid(x, y, length, 'horizontal') === false) {
+        return `Space already taken`;
       }
     }
 
