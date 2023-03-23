@@ -1,15 +1,19 @@
-const Ship = (length, hits, sunk) => {
+const Ship = (length) => {
+  let sunk = false;
+  let totalHits = 0;
   const hit = () => {
-    hits += 1;
+    totalHits += 1;
   };
 
-  const isSunk = () => {
+  const calSunk = () => {
     if (length === hits) {
       sunk = true;
     }
   };
+  const hits = () => totalHits;
+  const isSunk = () => sunk;
 
-  return { length, hits, sunk, hit, isSunk };
+  return { length, hit, calSunk, hits, isSunk };
 };
 
 export default Ship;
