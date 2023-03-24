@@ -46,9 +46,19 @@ const Gameboard = () => {
     return false;
   };
 
-  const placeShip = (x, y, length, orient, count = 0, record = []) => {
+  const placeShip = (x, y, length, orient, count = 0, record = {}) => {
+    const shipName = fleet[length];
+    if (shipRecord[shipName] !== undefined) {
+      return 'Ship not available';
+    }
+
     if (count === length) {
-      const shipName = fleet[length];
+      if (shipName === 'Destroyer1') {
+        fleet[length] = 'Destroyer2';
+      }
+      if (shipName === 'Submarine1') {
+        fleet[length] = 'Submarine2';
+      }
       shipRecord[shipName] = record;
       return;
     }
@@ -78,7 +88,9 @@ const Gameboard = () => {
       if (surveyGrid(x, y, length, 'horizontal') === true) {
         const target = findGrid(fullBoard, x, y);
         target.ship = Ship(length);
-        return placeShip(x, y + 1, length, orient, count + 1);
+        const recordKey = target.coord;
+        record[recordKey] = recordKey;
+        return placeShip(x, y + 1, length, orient, count + 1, record);
       }
       if (surveyGrid(x, y, length, 'horizontal') === false) {
         return `Space already taken`;
@@ -86,61 +98,75 @@ const Gameboard = () => {
     }
   };
 
-  // const findSunk = () => {
-  //   let allSunk = false;
-  //   const sunkCount = [];
-  //   shipRecord.forEach((grid) => {
-  //     if (grid.ship.hit === true) {
-  //       sunkCount.push(grid);
-  //     }
-  //   });
-  //   if (sunkCount.length === shipRecord.length) {
-  //     allSunk = true;
-  //   }
-  //   return allSunk;
-  // };
+  const checkSunk = () => {
+    const shipKeys = Object.keys(shipRecord);
+    shipKeys.forEach((ship) => {
+      const coordObj = shipRecord[ship];
+      const coordKeys = Object.keys(coordObj);
+      const checkShip = findGrid(
+        fullBoard,
+        Number(coordKeys[0][0]),
+        Number(coordKeys[0][2])
+      );
+      checkShip.ship.calSunk();
+      if (checkShip.ship.isSunk() === true) {
+        sunkRecord.push(ship);
+      }
+    });
+
+    if (sunkRecord.length === shipKeys.length) {
+      return 'All ships sunk';
+    }
+    return 'Not all ships sunk';
+  };
 
   const receiveAttack = (x, y) => {
     const target = findGrid(fullBoard, x, y);
     const coord = [x, y];
     const attackShip = [];
+
     if (target.ship !== undefined) {
       if (hitRecord[coord] === undefined) {
+        hitRecord[coord] = coord;
         const fleet = Object.keys(shipRecord);
         fleet.forEach((ship) => {
           const currentShip = shipRecord[ship];
           if (currentShip[coord] !== undefined) {
             attackShip.push(ship);
-            console.log(attackShip);
           }
         });
+        const allCoord = shipRecord[attackShip[0]];
+        const allKeys = Object.keys(allCoord);
+        allKeys.forEach((keys) => {
+          const property = allCoord[keys];
+          const oneHit = findGrid(fullBoard, property[0], property[1]);
+          oneHit.ship.hit();
+        });
+      } else if (hitRecord[coord] !== undefined) {
+        return 'Ship already hit';
       }
-      const allCoord = shipRecord[attackShip[0]];
-      const allKeys = Object.keys(allCoord);
-      allKeys.forEach((keys) => {
-        const property = allCoord[keys];
-        const oneHit = findGrid(fullBoard, property[0], property[1]);
-        oneHit.ship.hit();
-      });
     }
 
-    // if (target.ship === undefined) {
-    //   if (target.miss === false) {
-    //     target.miss = true;
-    //   } else {
-    //     return 'Hitting a missed shot again';
-    //   }
-    // }
-
-    // if (findSunk() === true) {
-    //   return 'All ships sunk';
-    // }
+    if (target.ship === undefined) {
+      if (target.miss === false) {
+        target.miss = true;
+      } else {
+        return 'Hitting a missed shot again';
+      }
+    }
   };
 
   const fullBoard = makeBoard();
   const shipRecord = {};
   const hitRecord = {};
-  const fleet = { 3: 'Crusier' };
+  const sunkRecord = [];
+  const fleet = {
+    5: 'Carrier',
+    4: 'Battleship',
+    3: 'Crusier',
+    2: 'Destroyer1',
+    1: 'Submarine1',
+  };
 
   return {
     fullBoard,
@@ -149,6 +175,7 @@ const Gameboard = () => {
     receiveAttack,
     shipRecord,
     hitRecord,
+    checkSunk,
   };
 };
 
