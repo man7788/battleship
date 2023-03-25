@@ -3,6 +3,8 @@ import Ship from './ship';
 import Gameboard from './gameboard';
 import Player from './player';
 
+// const newPlayer = Player();
+// console.log(newPlayer.getRandomInt(0, 10));
 // const newBoard = Gameboard();
 // newBoard.placeShip(4, 4, 3, 'vertical');
 // newBoard.placeShip(1, 1, 3, 'vertical');
@@ -15,8 +17,8 @@ import Player from './player';
 
 // console.log(newBoard.shipRecord);
 // console.log(newBoard.receiveAttack(4, 4));
+// console.log(newBoard.receiveAttack(1, 1));
 // console.log(newBoard.hitRecord);
-// console.log(newBoard.receiveAttack(4, 4));
 // console.log(newBoard.findGrid(newBoard.fullBoard, 4, 4).ship.hits());
 // console.log(newBoard.findGrid(newBoard.fullBoard, 5, 4).ship.hits());
 
@@ -129,13 +131,25 @@ it('should report whether all ships have been sunk', () => {
 });
 
 it('should attack enemy gameboard', () => {
-  const newBoard = Gameboard();
-  const newPlayer = Player(newBoard);
-  newBoard.placeShip(4, 4, 3, 'vertical');
+  const enemyBoard = Gameboard();
+  const newPlayer = Player(enemyBoard);
+  enemyBoard.placeShip(4, 4, 3, 'vertical');
   newPlayer.attack(1, 1);
   newPlayer.attack(4, 4);
-  expect(newBoard.findGrid(newBoard.fullBoard, 1, 1).miss).toBeTruthy();
-  expect(newBoard.findGrid(newBoard.fullBoard, 4, 4).ship.hits()).toBe(1);
-  expect(newBoard.findGrid(newBoard.fullBoard, 5, 4).ship.hits()).toBe(1);
-  expect(newBoard.findGrid(newBoard.fullBoard, 6, 4).ship.hits()).toBe(1);
+  expect(enemyBoard.findGrid(enemyBoard.fullBoard, 1, 1).miss).toBeTruthy();
+  expect(enemyBoard.findGrid(enemyBoard.fullBoard, 4, 4).ship.hits()).toBe(1);
+  expect(enemyBoard.findGrid(enemyBoard.fullBoard, 5, 4).ship.hits()).toBe(1);
+  expect(enemyBoard.findGrid(enemyBoard.fullBoard, 6, 4).ship.hits()).toBe(1);
+});
+
+it.only('should attack automaticlly after player turn', () => {
+  const humanBoard = Gameboard();
+  const computerBoard = Gameboard();
+  const computerPlayer = Player(humanBoard);
+  computerPlayer.computerOn();
+  const humanPlayer = Player(computerBoard, computerPlayer, humanBoard);
+  humanPlayer.attack(1, 1);
+  humanPlayer.attack(2, 2);
+
+  expect(Object.keys(humanBoard.hitRecord).length).toBe(2);
 });

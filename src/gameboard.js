@@ -149,6 +149,7 @@ const Gameboard = () => {
 
     if (target.ship === undefined) {
       if (target.miss === false) {
+        hitRecord[coord] = coord;
         target.miss = true;
       } else {
         return 'Hitting a missed shot again';
