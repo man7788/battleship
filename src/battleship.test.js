@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import Ship from './ship';
 import Gameboard from './gameboard';
+import Player from './player';
 
 // const newBoard = Gameboard();
 // newBoard.placeShip(4, 4, 3, 'vertical');
@@ -125,4 +126,16 @@ it('should report whether all ships have been sunk', () => {
   newBoard.receiveAttack(5, 4);
   newBoard.receiveAttack(6, 4);
   expect(newBoard.checkSunk()).toMatch('All ships sunk');
+});
+
+it('should attack enemy gameboard', () => {
+  const newBoard = Gameboard();
+  const newPlayer = Player(newBoard);
+  newBoard.placeShip(4, 4, 3, 'vertical');
+  newPlayer.attack(1, 1);
+  newPlayer.attack(4, 4);
+  expect(newBoard.findGrid(newBoard.fullBoard, 1, 1).miss).toBeTruthy();
+  expect(newBoard.findGrid(newBoard.fullBoard, 4, 4).ship.hits()).toBe(1);
+  expect(newBoard.findGrid(newBoard.fullBoard, 5, 4).ship.hits()).toBe(1);
+  expect(newBoard.findGrid(newBoard.fullBoard, 6, 4).ship.hits()).toBe(1);
 });
