@@ -26,14 +26,12 @@ const Player = (enemyBoard, computerPlayer, ownBoard) => {
   const autoMove = () => {
     const x = getRandomInt(0, 9);
     const y = getRandomInt(0, 9);
-    console.log(x, y);
 
     const response = ownBoard.receiveAttack(x, y);
 
     if (response !== undefined) {
       return autoMove();
     }
-    console.log(ownBoard.hitRecord);
   };
 
   return { attack, computerOn, computer, getRandomInt };

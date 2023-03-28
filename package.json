@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "watch": "jest --watch",
+    "watch": "webpack --watch",
     "build": "webpack"
   },
   "keywords": [],

@@ -46,7 +46,31 @@ const Gameboard = () => {
     return false;
   };
 
-  const placeShip = (x, y, length, orient, count = 0, record = {}) => {
+  const placeShip = (
+    x,
+    y,
+    length,
+    orient,
+    count = 0,
+    record = {},
+    checkLength = true,
+    survey = null
+  ) => {
+    if (checkLength === true) {
+      if (x + length > 10 || y + length > 10) {
+        return 'Ship over border';
+      }
+    }
+
+    if (survey === null) {
+      if (orient === 'vertical') {
+        survey = surveyGrid(x, y, length, 'vertical');
+      }
+      if (orient === 'horizontal') {
+        survey = surveyGrid(x, y, length, 'horizontal');
+      }
+    }
+
     const shipName = fleet[length];
     if (shipRecord[shipName] !== undefined) {
       return 'Ship not available';
@@ -63,36 +87,52 @@ const Gameboard = () => {
       return;
     }
 
-    if (x + length > 9 || y + length > 9) {
-      return 'Ship over border';
-    }
-
     if (findGrid(fullBoard, x, y).ship !== undefined) {
       return `Space already taken`;
     }
 
     if (orient === 'vertical') {
-      if (surveyGrid(x, y, length, 'vertical') === true) {
+      if (survey === true) {
         const target = findGrid(fullBoard, x, y);
         target.ship = Ship(length);
         const recordKey = target.coord;
         record[recordKey] = recordKey;
-        return placeShip(x + 1, y, length, orient, count + 1, record);
+        checkLength = false;
+        return placeShip(
+          x + 1,
+          y,
+          length,
+          orient,
+          count + 1,
+          record,
+          checkLength,
+          survey
+        );
       }
-      if (surveyGrid(x, y, length, 'vertical') === false) {
+      if (survey === false) {
         return `Space already taken`;
       }
     }
 
     if (orient === 'horizontal') {
-      if (surveyGrid(x, y, length, 'horizontal') === true) {
+      if (survey === true) {
         const target = findGrid(fullBoard, x, y);
         target.ship = Ship(length);
         const recordKey = target.coord;
         record[recordKey] = recordKey;
-        return placeShip(x, y + 1, length, orient, count + 1, record);
+        checkLength = false;
+        return placeShip(
+          x,
+          y + 1,
+          length,
+          orient,
+          count + 1,
+          record,
+          checkLength,
+          survey
+        );
       }
-      if (surveyGrid(x, y, length, 'horizontal') === false) {
+      if (survey === false) {
         return `Space already taken`;
       }
     }
