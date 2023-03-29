@@ -54,8 +54,12 @@ body {
   height: 30rem;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
+  resize: none;
 }
 
 .big-grid {
   border: 2px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 } 
