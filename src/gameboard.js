@@ -57,7 +57,10 @@ const Gameboard = () => {
     survey = null
   ) => {
     if (checkLength === true) {
-      if (x + length > 10 || y + length > 10) {
+      if (x + length > 10 && orient === 'vertical') {
+        return 'Ship over border';
+      }
+      if (y + length > 10 && orient === 'horizontal') {
         return 'Ship over border';
       }
     }
