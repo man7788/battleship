@@ -15,28 +15,31 @@ const gridIndex = (grid) => {
 
 const createClick = (player, computerBoard) => {
   const grids = allGrids();
+
+  function clickStyle() {
+    const target = gridIndex(this);
+    player.attack(target[0], target[1]);
+    const result = computerBoard.findGrid(
+      computerBoard.fullBoard,
+      target[0],
+      target[1]
+    );
+    if (result.miss === true) {
+      this.style.color = 'whitesmoke';
+    }
+    if (result.ship !== undefined) {
+      this.textContent = 'X';
+      this.style.color = 'red';
+    }
+    this.removeEventListener('click', clickStyle);
+  }
+
   for (let i = 0; i < grids.length; i++) {
     grids[i].classList.add(`grid${i}`);
     grids[i].textContent = '/';
     grids[i].style.fontSize = '2rem';
     grids[i].style.color = 'transparent';
-
-    grids[i].addEventListener('click', () => {
-      const target = gridIndex(grids[i]);
-      player.attack(target[0], target[1]);
-      const result = computerBoard.findGrid(
-        computerBoard.fullBoard,
-        target[0],
-        target[1]
-      );
-      if (result.miss === true) {
-        grids[i].style.color = 'whitesmoke';
-      }
-      if (result.ship !== undefined) {
-        grids[i].textContent = 'X';
-        grids[i].style.color = 'red';
-      }
-    });
+    grids[i].addEventListener('click', clickStyle);
   }
 };
 

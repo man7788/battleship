@@ -1,4 +1,4 @@
-import { convertCoord, convertNum } from './convert';
+import { convertCoord } from './convert';
 
 const allGrids = () => {
   const grids = document.querySelectorAll('.small-grid');
@@ -12,7 +12,6 @@ const preStyle = () => {
     grids[i].textContent = '/';
     grids[i].style.fontSize = '1.5rem';
     grids[i].style.color = 'transparent';
-    // grids[i].style.color = 'whitesmoke';
   }
 };
 
@@ -65,7 +64,6 @@ const displayHit = (board) => {
   const table = convertCoord();
   const gridNum = table[coord];
 
-  // console.log(target);
   if (target.miss === true) {
     grids[gridNum].style.color = 'whitesmoke';
   }
@@ -73,17 +71,6 @@ const displayHit = (board) => {
     grids[gridNum].textContent = 'X';
     grids[gridNum].style.color = 'red';
   }
-
-  // grids[i].addEventListener('click', () => {
-  //   const target = findGrid(grids[i]);
-  //   player.attack(target[0], target[1]);
-  //   const result = computerBoard.findGrid(
-  //     computerBoard.fullBoard,
-  //     target[0],
-  //     target[1]
-  //   );
-  //   console.log(result);
-  // });
 };
 
 export { highlightGrid, highBig, displayHit };
