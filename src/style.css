@@ -45,6 +45,9 @@ body {
 
 .small-grid {
   border: 2px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 } 
 
 .big-board {
@@ -62,4 +65,5 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor:pointer
 } 

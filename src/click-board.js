@@ -5,12 +5,11 @@ const allGrids = () => {
   return grids;
 };
 
-const findGrid = (grid) => {
+const gridIndex = (grid) => {
   const re = /[0-9]+/;
   const num = grid.className;
   const gridNum = re.exec(num.slice(num.length - 2, num.length))[0];
   const coord = convertNum();
-  console.log(coord[gridNum]);
   return coord[gridNum];
 };
 
@@ -23,14 +22,13 @@ const createClick = (player, computerBoard) => {
     grids[i].style.color = 'transparent';
 
     grids[i].addEventListener('click', () => {
-      const target = findGrid(grids[i]);
+      const target = gridIndex(grids[i]);
       player.attack(target[0], target[1]);
       const result = computerBoard.findGrid(
         computerBoard.fullBoard,
         target[0],
         target[1]
       );
-      console.log(result);
       if (result.miss === true) {
         grids[i].style.color = 'whitesmoke';
       }

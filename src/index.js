@@ -2,12 +2,14 @@ import './style.css';
 import Gameboard from './gameboard';
 import Player from './player';
 import { highlightGrid, highBig } from './display-ships';
-import { convertCoord, convertNum } from './convert';
+import createClick from './click-board';
 
 const playerBoard = Gameboard();
 const computerBoard = Gameboard();
 const computer = Player(playerBoard);
+computer.computerOn();
 const player = Player(computerBoard, computer, playerBoard);
+
 playerBoard.placeShip(5, 1, 5, 'vertical');
 playerBoard.placeShip(4, 3, 4, 'horizontal');
 playerBoard.placeShip(6, 4, 3, 'horizontal');
@@ -28,48 +30,7 @@ computerBoard.placeShip(7, 0, 1, 'vertical');
 
 highBig(computerBoard.shipRecord);
 
-const grids = document.querySelectorAll('.big-grid');
-
-const findGrid = (grid) => {
-  const re = /[0-9]+/;
-  const num = grid.className;
-  const gridNum = re.exec(num.slice(num.length - 2, num.length))[0];
-  const coord = convertNum();
-  console.log(coord[gridNum]);
-  return coord[gridNum];
-};
-
-for (let i = 0; i < grids.length; i++) {
-  grids[i].classList.add(`grid${i}`);
-  grids[i].textContent = '/';
-  grids[i].style.fontSize = '2rem';
-  grids[i].style.color = 'transparent';
-
-  // grid.textContent = 'X';
-  // grid.style.fontSize = '2rem';
-  // grid.style.color = 'transparent';
-
-  grids[i].addEventListener('click', () => {
-    const target = findGrid(grids[i]);
-    player.attack(target[0], target[1]);
-    const result = computerBoard.findGrid(
-      computerBoard.fullBoard,
-      target[0],
-      target[1]
-    );
-    console.log(result);
-    if (result.miss === true) {
-      grids[i].style.color = 'whitesmoke';
-    }
-    if (result.ship !== undefined) {
-      grids[i].textContent = 'X';
-      grids[i].style.color = 'red';
-    }
-
-    // grid.style.color = 'whitesmoke';
-    // grid.style.color = 'red';
-  });
-}
+createClick(player, computerBoard);
 
 // Make enemy board clickable, invoke attack by clicking,
 // display whether hit or miss
