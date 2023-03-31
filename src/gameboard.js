@@ -153,14 +153,16 @@ const Gameboard = () => {
       );
       checkShip.ship.calSunk();
       if (checkShip.ship.isSunk() === true) {
-        sunkRecord.push(ship);
+        if (!Object.keys(sunkRecord).includes(ship)) {
+          sunkRecord[ship] = ship;
+        }
       }
     });
 
-    if (sunkRecord.length === shipKeys.length) {
-      return 'All ships sunk';
+    if (Object.keys(sunkRecord).length === shipKeys.length) {
+      return true;
     }
-    return 'Not all ships sunk';
+    return false;
   };
 
   const receiveAttack = (x, y) => {
@@ -203,7 +205,7 @@ const Gameboard = () => {
   const fullBoard = makeBoard();
   const shipRecord = {};
   const hitRecord = {};
-  const sunkRecord = [];
+  const sunkRecord = {};
   const fleet = {
     5: 'Carrier',
     4: 'Battleship',
@@ -220,6 +222,7 @@ const Gameboard = () => {
     shipRecord,
     hitRecord,
     checkSunk,
+    sunkRecord,
   };
 };
 
