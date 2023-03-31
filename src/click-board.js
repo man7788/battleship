@@ -1,4 +1,5 @@
 import { convertNum } from './convert';
+import { displayHit } from './display-ships';
 
 const allGrids = () => {
   const grids = document.querySelectorAll('.big-grid');
@@ -13,7 +14,7 @@ const gridIndex = (grid) => {
   return coord[gridNum];
 };
 
-const createClick = (player, computerBoard) => {
+const createClick = (player, computerBoard, playerBoard) => {
   const grids = allGrids();
 
   function clickStyle() {
@@ -32,6 +33,29 @@ const createClick = (player, computerBoard) => {
       this.style.color = 'red';
     }
     this.removeEventListener('click', clickStyle);
+
+    const computerSunk = computerBoard.checkSunk();
+
+    if (computerSunk === false) {
+      displayHit(playerBoard);
+      const playerSunk = playerBoard.checkSunk();
+      if (playerSunk === true) {
+        grids.forEach((grid) => {
+          grid.removeEventListener('click', clickStyle);
+        });
+        console.log('Computer win');
+      }
+    }
+
+    if (computerSunk === true) {
+      grids.forEach((grid) => {
+        grid.removeEventListener('click', clickStyle);
+      });
+      console.log('Human win');
+    }
+
+    console.log(computerBoard.shipRecord);
+    console.log(computerBoard.sunkRecord);
   }
 
   for (let i = 0; i < grids.length; i++) {

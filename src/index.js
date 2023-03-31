@@ -6,9 +6,9 @@ import createClick from './click-board';
 
 const playerBoard = Gameboard();
 const computerBoard = Gameboard();
-const computer = Player(playerBoard);
-computer.computerOn();
-const player = Player(computerBoard, computer, playerBoard);
+const computerPlayer = Player(playerBoard);
+computerPlayer.computerOn();
+const humanPlayer = Player(computerBoard, computerPlayer, playerBoard);
 
 playerBoard.placeShip(5, 1, 5, 'vertical');
 playerBoard.placeShip(4, 3, 4, 'horizontal');
@@ -30,8 +30,20 @@ computerBoard.placeShip(7, 0, 1, 'vertical');
 
 highBig(computerBoard.shipRecord);
 
-createClick(player, computerBoard);
+createClick(humanPlayer, computerBoard, playerBoard);
 
+// playerBoard.receiveAttack(5, 1);
+// playerBoard.receiveAttack(4, 3);
+// playerBoard.receiveAttack(6, 4);
+// playerBoard.receiveAttack(1, 7);
+// playerBoard.receiveAttack(4, 8);
+// playerBoard.receiveAttack(9, 9);
+// console.log(playerBoard.hitRecord);
+// playerBoard.receiveAttack(7, 8);
+// for (let i = 0; i < 100; i++) {
+//   const grids = document.querySelectorAll('.big-grid');
+//   grids[i].click();
+// }
 // Make enemy board clickable, invoke attack by clicking,
 // display whether hit or miss
 

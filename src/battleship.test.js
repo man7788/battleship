@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+
 import Ship from './ship';
 import Gameboard from './gameboard';
 import Player from './player';
@@ -119,11 +120,11 @@ it('should refuse to hit again on missed shot', () => {
 it('should report whether all ships have been sunk', () => {
   const newBoard = Gameboard();
   newBoard.placeShip(4, 4, 3, 'vertical');
-  expect(newBoard.checkSunk()).toMatch('Not all ships sunk');
+  expect(newBoard.checkSunk()).toBeFalsy();
   newBoard.receiveAttack(4, 4);
   newBoard.receiveAttack(5, 4);
   newBoard.receiveAttack(6, 4);
-  expect(newBoard.checkSunk()).toMatch('All ships sunk');
+  expect(newBoard.checkSunk()).toBeTruthy();
 });
 
 it('should attack enemy gameboard', () => {

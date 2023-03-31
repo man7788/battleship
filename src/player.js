@@ -1,5 +1,3 @@
-import { displayHit } from './display-ships';
-
 const Player = (enemyBoard, computerPlayer, ownBoard) => {
   let ai = false;
 
@@ -34,7 +32,6 @@ const Player = (enemyBoard, computerPlayer, ownBoard) => {
     if (response !== undefined) {
       return autoMove();
     }
-    displayHit(ownBoard);
   };
 
   return { attack, computerOn, computer, getRandomInt };
