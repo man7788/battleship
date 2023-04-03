@@ -27,10 +27,13 @@ const createClick = (player, computerBoard, playerBoard) => {
       target[1]
     );
     if (result.miss === true) {
+      this.textContent = '/';
+      this.style.fontSize = '2rem';
       this.style.color = 'whitesmoke';
     }
     if (result.ship !== undefined) {
       this.textContent = 'X';
+      this.style.fontSize = '2rem';
       this.style.color = 'red';
     }
     this.removeEventListener('click', clickStyle);
@@ -63,9 +66,6 @@ const createClick = (player, computerBoard, playerBoard) => {
 
   for (let i = 0; i < grids.length; i++) {
     grids[i].classList.add(`grid${i}`);
-    grids[i].textContent = '/';
-    grids[i].style.fontSize = '2rem';
-    grids[i].style.color = 'transparent';
     grids[i].addEventListener('click', clickStyle);
   }
 };

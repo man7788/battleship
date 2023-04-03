@@ -41,6 +41,7 @@ body {
   height: 25rem;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
 }
 
 .small-grid {
@@ -48,6 +49,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 } 
 
 .big-board {
@@ -57,7 +59,8 @@ body {
   height: 30rem;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  resize: none;
+  grid-template-rows: repeat(10, 1fr);
+
 }
 
 .big-grid {

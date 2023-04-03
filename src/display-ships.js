@@ -5,16 +5,6 @@ const allGrids = () => {
   return grids;
 };
 
-const preStyle = () => {
-  const grids = allGrids();
-  for (let i = 0; i < grids.length; i++) {
-    grids[i].classList.add(`grid${i}`);
-    grids[i].textContent = '/';
-    grids[i].style.fontSize = '1.5rem';
-    grids[i].style.color = 'transparent';
-  }
-};
-
 const highlightGrid = (ships) => {
   const targets = [];
   const grids = allGrids();
@@ -32,8 +22,6 @@ const highlightGrid = (ships) => {
     const index = table[target];
     grids[index].style.border = '2px cyan solid';
   });
-
-  preStyle();
 };
 
 const highBig = (ships) => {
@@ -65,10 +53,13 @@ const displayHit = (board) => {
   const gridNum = table[coord];
 
   if (target.miss === true) {
+    grids[gridNum].textContent = 'X';
+    grids[gridNum].style.fontSize = '1.5rem';
     grids[gridNum].style.color = 'whitesmoke';
   }
   if (target.ship !== undefined) {
     grids[gridNum].textContent = 'X';
+    grids[gridNum].style.fontSize = '1.5rem';
     grids[gridNum].style.color = 'red';
   }
 };
