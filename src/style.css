@@ -12,7 +12,7 @@ body {
 .container {
   border: 1px soild red;
   display: grid;
-  grid-template-rows: 1fr 4fr;
+  grid-template-rows: 1fr 10fr 1fr;
   height: 100vh;
 }
 
@@ -67,3 +67,11 @@ body {
   align-items: center;
   cursor:pointer
 } 
+
+.message {
+  color: whitesmoke;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
