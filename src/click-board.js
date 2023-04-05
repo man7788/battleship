@@ -16,7 +16,8 @@ const gridIndex = (grid) => {
 
 const createClick = (player, computerBoard, playerBoard) => {
   const grids = allGrids();
-  const message = document.querySelector('.message');
+  const smallWin = document.querySelector('.small-win');
+  const bigWin = document.querySelector('.big-win');
 
   function clickStyle() {
     const target = gridIndex(this);
@@ -48,7 +49,7 @@ const createClick = (player, computerBoard, playerBoard) => {
           grid.removeEventListener('click', clickStyle);
         });
         console.log('Computer win');
-        message.textContent = 'Computer Win';
+        bigWin.textContent = 'Opponent Win';
       }
     }
 
@@ -57,7 +58,7 @@ const createClick = (player, computerBoard, playerBoard) => {
         grid.removeEventListener('click', clickStyle);
       });
       console.log('Human win');
-      message.textContent = 'Human win';
+      smallWin.textContent = 'Player win';
     }
 
     console.log(computerBoard.shipRecord);

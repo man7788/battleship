@@ -28,20 +28,36 @@ body {
 
 .board-div {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 5fr 1fr 1fr 1fr 5fr;
   width: 100vw;
+  /* height: fit-content; */
   grid-row: 2 / 3;
   color: whitesmoke;
 }
 
+.small-container {
+  border: 2px solid tomato;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  grid-column: 2 / 3;
+}
+
 .small-board {
   border: 2px solid orange;
-  justify-self: center;
   width: 25rem;
   height: 25rem;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+
+}
+
+.small-num,
+.small-apl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .small-grid {
@@ -49,18 +65,35 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 } 
+
+.small-name {
+  align-self: center;
+}
+
+.big-container {
+  border: 2px solid tomato;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  grid-column: 4 / 5;
+}
 
 .big-board {
   border: 2px solid orange;
-  grid-column: 2 / 3;
   width: 30rem;
   height: 30rem;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+}
 
+.big-num,
+.big-alp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
 }
 
 .big-grid {
@@ -71,10 +104,19 @@ body {
   cursor:pointer
 } 
 
+.big-name {
+  align-self: center;
+}
+
 .message {
   color: whitesmoke;
   font-size: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.small-win,
+.big-win {
+  align-self: center;
 }
