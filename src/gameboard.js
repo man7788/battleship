@@ -1,8 +1,8 @@
 import Ship from './ship';
 
-const Grid = (x, y, up, right, ship, miss = false) => {
+const Grid = (x, y, up, right, ship, miss = false, boundary = false) => {
   const coord = [x, y];
-  return { coord, up, right, ship, miss };
+  return { coord, up, right, ship, miss, boundary };
 };
 
 const Gameboard = () => {
@@ -35,7 +35,10 @@ const Gameboard = () => {
     if (count === length) {
       return true;
     }
-    if (findGrid(fullBoard, x, y).ship === undefined) {
+    if (
+      findGrid(fullBoard, x, y).ship === undefined &&
+      findGrid(fullBoard, x, y).boundary === false
+    ) {
       if (orient === 'vertical') {
         return surveyGrid(x + 1, y, length, orient, count + 1);
       }
@@ -44,6 +47,42 @@ const Gameboard = () => {
       }
     }
     return false;
+  };
+
+  const placeBoundary = (x, y) => {
+    const list = [];
+
+    if (x + 1 < 10) {
+      list.push(findGrid(fullBoard, x + 1, y));
+    }
+    if (x - 1 > 0) {
+      list.push(findGrid(fullBoard, x - 1, y));
+    }
+    if (y - 1 > 0) {
+      list.push(findGrid(fullBoard, x, y - 1));
+    }
+    if (y + 1 < 10) {
+      list.push(findGrid(fullBoard, x, y + 1));
+    }
+
+    if (x + 1 < 10 && y - 1 > 0) {
+      list.push(findGrid(fullBoard, x + 1, y - 1));
+    }
+    if (x + 1 < 10 && y + 1 < 10) {
+      list.push(findGrid(fullBoard, x + 1, y + 1));
+    }
+    if (x - 1 > 0 && y - 1 > 0) {
+      list.push(findGrid(fullBoard, x - 1, y - 1));
+    }
+    if (x - 1 < 10 && y + 1 > 10) {
+      list.push(findGrid(fullBoard, x - 1, y + 1));
+    }
+
+    list.forEach((ship) => {
+      ship.boundary = true;
+    });
+
+    console.log(list);
   };
 
   const placeShip = (
@@ -96,6 +135,7 @@ const Gameboard = () => {
 
     if (orient === 'vertical') {
       if (survey === true) {
+        placeBoundary(x, y);
         const target = findGrid(fullBoard, x, y);
         target.ship = Ship(length);
         const recordKey = target.coord;
@@ -119,6 +159,7 @@ const Gameboard = () => {
 
     if (orient === 'horizontal') {
       if (survey === true) {
+        placeBoundary(x, y);
         const target = findGrid(fullBoard, x, y);
         target.ship = Ship(length);
         const recordKey = target.coord;
@@ -223,6 +264,7 @@ const Gameboard = () => {
     hitRecord,
     checkSunk,
     sunkRecord,
+    placeBoundary,
   };
 };
 
