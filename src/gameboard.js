@@ -35,10 +35,7 @@ const Gameboard = () => {
     if (count === length) {
       return true;
     }
-    if (
-      findGrid(fullBoard, x, y).ship === undefined &&
-      findGrid(fullBoard, x, y).boundary === false
-    ) {
+    if (findGrid(fullBoard, x, y).ship === undefined) {
       if (orient === 'vertical') {
         return surveyGrid(x + 1, y, length, orient, count + 1);
       }
@@ -81,8 +78,6 @@ const Gameboard = () => {
     list.forEach((ship) => {
       ship.boundary = true;
     });
-
-    console.log(list);
   };
 
   const placeShip = (
@@ -135,9 +130,9 @@ const Gameboard = () => {
 
     if (orient === 'vertical') {
       if (survey === true) {
-        placeBoundary(x, y);
+        // placeBoundary(x, y);
         const target = findGrid(fullBoard, x, y);
-        target.ship = Ship(length);
+        target.ship = Ship(length, 'vertical');
         const recordKey = target.coord;
         record[recordKey] = recordKey;
         checkLength = false;
@@ -159,9 +154,9 @@ const Gameboard = () => {
 
     if (orient === 'horizontal') {
       if (survey === true) {
-        placeBoundary(x, y);
+        // placeBoundary(x, y);
         const target = findGrid(fullBoard, x, y);
-        target.ship = Ship(length);
+        target.ship = Ship(length, 'horizontal');
         const recordKey = target.coord;
         record[recordKey] = recordKey;
         checkLength = false;

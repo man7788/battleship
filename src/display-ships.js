@@ -5,7 +5,7 @@ const allGrids = () => {
   return grids;
 };
 
-const highlightGrid = (ships) => {
+const highLightGrid = (ships) => {
   const targets = [];
   const grids = allGrids();
 
@@ -64,4 +64,4 @@ const displayHit = (board) => {
   }
 };
 
-export { highlightGrid, highBig, displayHit };
+export { highLightGrid, highBig, displayHit };

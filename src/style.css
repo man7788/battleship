@@ -67,7 +67,12 @@ body {
   align-items: center;
 } 
 
-.small-name {
+.small-grid[style="border: 2px solid cyan;"] {
+  cursor:pointer
+}
+
+.small-name,
+.small-win {
   align-self: center;
 }
 
