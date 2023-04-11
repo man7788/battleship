@@ -61,8 +61,8 @@ const createClick = (player, computerBoard, playerBoard) => {
       smallWin.textContent = 'Player win';
     }
 
-    console.log(computerBoard.shipRecord);
-    console.log(computerBoard.sunkRecord);
+    // console.log(computerBoard.shipRecord);
+    // console.log(computerBoard.sunkRecord);
   }
 
   for (let i = 0; i < grids.length; i++) {

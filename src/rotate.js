@@ -73,7 +73,7 @@ const rotate = (coord, ships, board, grids, table) => {
         'horizontal'
       );
     }
-    console.log(ships);
+    console.log(check);
   }
   // Place ship back to original if out of range/place occupied
 };

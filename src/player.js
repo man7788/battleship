@@ -44,7 +44,7 @@ const Player = (enemyBoard, computerPlayer, ownBoard) => {
       Number(coords[hitKeys.length][0]),
       Number(coords[hitKeys.length][2])
     );
-    console.log(coords, coords[0][0], coords[0][2], ownBoard.hitRecord);
+    // console.log(coords, coords[0][0], coords[0][2], ownBoard.hitRecord);
   };
 
   const autoMove = () => {

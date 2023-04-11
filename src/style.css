@@ -67,9 +67,9 @@ body {
   align-items: center;
 } 
 
-.small-grid[style="border: 2px solid cyan;"] {
+/* .small-grid[style="border: 2px solid cyan;"] {
   cursor:pointer
-}
+} */
 
 .small-name,
 .small-win {
