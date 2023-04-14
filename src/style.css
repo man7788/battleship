@@ -71,6 +71,11 @@ body {
   cursor:pointer
 } */
 
+.small-rotate {
+  width: fit-content;
+  align-self: center;
+}
+
 .small-name,
 .small-win {
   align-self: center;
