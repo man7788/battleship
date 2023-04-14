@@ -1,11 +1,6 @@
 import { convertNum } from './convert';
 import { displayHit } from './display-ships';
 
-const allGrids = () => {
-  const grids = document.querySelectorAll('.big-grid');
-  return grids;
-};
-
 const gridIndex = (grid) => {
   const re = /[0-9]+/;
   const num = grid.className;
@@ -15,8 +10,8 @@ const gridIndex = (grid) => {
 };
 
 const createClick = (player, computerBoard, playerBoard) => {
-  const grids = allGrids();
-  const smallWin = document.querySelector('.small-win');
+  const grids = document.querySelectorAll('.big-grid');
+  // const smallWin = document.querySelector('.small-win');
   const bigWin = document.querySelector('.big-win');
 
   function clickStyle() {
@@ -58,7 +53,7 @@ const createClick = (player, computerBoard, playerBoard) => {
         grid.removeEventListener('click', clickStyle);
       });
       console.log('Human win');
-      smallWin.textContent = 'Player win';
+      bigWin.textContent = 'Player win';
     }
 
     // console.log(computerBoard.shipRecord);
@@ -67,6 +62,7 @@ const createClick = (player, computerBoard, playerBoard) => {
 
   for (let i = 0; i < grids.length; i++) {
     grids[i].classList.add(`grid${i}`);
+    grids[i].style.cursor = 'pointer';
     grids[i].addEventListener('click', clickStyle);
   }
 };

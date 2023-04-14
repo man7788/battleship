@@ -1,17 +1,20 @@
 import './style.css';
-import Gameboard from './gameboard';
-import Player from './player';
-import { highLightGrid, highBig } from './display-ships';
-import createClick from './click-board';
-import { convertNum, convertCoord } from './convert';
-import hoverGrid from './hover';
+// import Gameboard from './gameboard';
+// import Player from './player';
+// import { highLightGrid, highBig } from './display-ships';
+// import createClick from './click-board';
+// import { convertNum, convertCoord } from './convert';
+// import hoverGrid from './hover';
 import setPlayerShip from './set-ship';
+import { computerBoard, playerBoard, humanPlayer } from './setup';
 
-const playerBoard = Gameboard();
-const computerBoard = Gameboard();
-const computerPlayer = Player(playerBoard);
-computerPlayer.computerOn();
-const humanPlayer = Player(computerBoard, computerPlayer, playerBoard);
+setPlayerShip(playerBoard, humanPlayer, computerBoard);
+
+// const playerBoard = Gameboard();
+// const computerBoard = Gameboard();
+// const computerPlayer = Player(playerBoard);
+// computerPlayer.computerOn();
+// const humanPlayer = Player(computerBoard, computerPlayer, playerBoard);
 
 // playerBoard.placeShip(4, 1, 5, 'vertical');
 // playerBoard.placeShip(6, 4, 3, 'horizontal');
@@ -33,9 +36,7 @@ const humanPlayer = Player(computerBoard, computerPlayer, playerBoard);
 
 // highBig(computerBoard.shipRecord);
 
-createClick(humanPlayer, computerBoard, playerBoard);
+// createClick(humanPlayer, computerBoard, playerBoard);
 
 // hoverGrid(5, 'vertical');
 // hoverGrid(5, 'horizontal');
-
-setPlayerShip(playerBoard);

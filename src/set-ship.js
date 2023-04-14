@@ -1,6 +1,7 @@
 import hoverGrid from './hover';
 import { highLightGrid } from './display-ships';
 import { convertNum } from './convert';
+import createClick from './click-board';
 
 const gridIndex = (grid) => {
   const re = /[0-9]+/;
@@ -9,7 +10,7 @@ const gridIndex = (grid) => {
   return gridNum;
 };
 
-const setPlayerShip = (board) => {
+const setPlayerShip = (playerBoard, humanPlayer, computerBoard) => {
   const grids = document.querySelectorAll('.small-grid');
   const button = document.querySelector('.small-rotate');
 
@@ -29,7 +30,7 @@ const setPlayerShip = (board) => {
   }
 
   const getLength = () => {
-    const recordLength = Object.keys(board.shipRecord).length;
+    const recordLength = Object.keys(playerBoard.shipRecord).length;
     const length = convertLength[recordLength];
     return length;
   };
@@ -59,7 +60,7 @@ const setPlayerShip = (board) => {
 
   const wipeHover = () => {
     hover.wipe();
-    highLightGrid(board.shipRecord);
+    highLightGrid(playerBoard.shipRecord);
   };
 
   const clickGrids = () => {
@@ -73,6 +74,7 @@ const setPlayerShip = (board) => {
     for (let i = 0; i < grids.length; i++) {
       grids[i].removeEventListener('click', place);
     }
+    createClick(humanPlayer, computerBoard, playerBoard);
   };
 
   function place() {
@@ -80,8 +82,11 @@ const setPlayerShip = (board) => {
     const table = convertNum();
 
     const promise1 = Promise.resolve(
-      console.log(
-        board.placeShip(table[index][0], table[index][1], getLength(), orient)
+      playerBoard.placeShip(
+        table[index][0],
+        table[index][1],
+        getLength(),
+        orient
       )
     );
     promise1
@@ -94,7 +99,7 @@ const setPlayerShip = (board) => {
         } else {
           removeClicks();
         }
-        console.log(board.shipRecord);
+        // console.log(board.shipRecord);
       });
   }
 

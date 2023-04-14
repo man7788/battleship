@@ -67,10 +67,6 @@ body {
   align-items: center;
 } 
 
-/* .small-grid[style="border: 2px solid cyan;"] {
-  cursor:pointer
-} */
-
 .small-rotate {
   width: fit-content;
   align-self: center;
@@ -111,7 +107,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor:pointer
 } 
 
 .big-name {
