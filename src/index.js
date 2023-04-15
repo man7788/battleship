@@ -2,13 +2,24 @@ import './style.css';
 // import Gameboard from './gameboard';
 // import Player from './player';
 // import { highLightGrid, highBig } from './display-ships';
-// import createClick from './click-board';
+import createClick from './click-board';
 // import { convertNum, convertCoord } from './convert';
 // import hoverGrid from './hover';
-import setPlayerShip from './set-ship';
-import { computerBoard, playerBoard, humanPlayer } from './setup';
+import setPlayerShip from './set-player-ship';
+import setComputerShip from './set-computer-ship';
+import setGame from './setup';
 
-setPlayerShip(playerBoard, humanPlayer, computerBoard);
+setGame();
+// console.log(createClick().clickStyle.remove);
+
+// const button = document.querySelector('.small-rotate');
+// button.addEventListener('click', game);
+
+// setPlayerShip(game.playerBoard, game.humanPlayer, game.computerBoard);
+
+// setComputerShip(game.computerBoard);
+
+// console.log(game.computerBoard.shipRecord);
 
 // const playerBoard = Gameboard();
 // const computerBoard = Gameboard();

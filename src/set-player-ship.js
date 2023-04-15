@@ -2,6 +2,47 @@ import hoverGrid from './hover';
 import { highLightGrid } from './display-ships';
 import { convertNum } from './convert';
 import createClick from './click-board';
+import Gameboard from './gameboard';
+import Player from './player';
+import setComputerShip from './set-computer-ship';
+
+const setGame = () => {
+  const playerBoard = Gameboard();
+  const computerBoard = Gameboard();
+  const computerPlayer = Player(playerBoard);
+  computerPlayer.computerOn();
+  const humanPlayer = Player(computerBoard, computerPlayer, playerBoard);
+
+  setPlayerShip(playerBoard, humanPlayer, computerBoard);
+  setComputerShip(computerBoard);
+};
+
+const restart = () => {
+  const button = document.querySelector('.small-rotate');
+  const smallGrids = document.querySelectorAll('.small-grid');
+  const bigGrids = document.querySelectorAll('.big-grid');
+
+  const clearAll = () => {
+    button.removeEventListener('click', clearAll);
+
+    button.textContent = 'Start';
+    console.dir(createClick().clickStyle);
+
+    for (let i = 0; i < smallGrids.length; i++) {
+      smallGrids[i].style.border = '2px solid gray';
+      smallGrids[i].textContent = '';
+      bigGrids[i].style.border = '2px solid gray';
+      bigGrids[i].textContent = '';
+      bigGrids[i].style.cursor = 'default';
+      // bigGrids[i].removeEventListener('click', createClick().clickStyle);
+      bigGrids[i].onclick = null;
+    }
+
+    setGame();
+  };
+  button.textContent = 'Restart';
+  button.addEventListener('click', clearAll);
+};
 
 const gridIndex = (grid) => {
   const re = /[0-9]+/;
@@ -98,8 +139,10 @@ const setPlayerShip = (playerBoard, humanPlayer, computerBoard) => {
           getHover();
         } else {
           removeClicks();
+          // Reset Game
+          button.removeEventListener('click', rotate);
+          restart();
         }
-        // console.log(board.shipRecord);
       });
   }
 

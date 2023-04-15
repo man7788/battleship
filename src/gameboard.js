@@ -238,10 +238,10 @@ const Gameboard = () => {
     }
   };
 
-  const fullBoard = makeBoard();
-  const shipRecord = {};
-  const hitRecord = {};
-  const sunkRecord = {};
+  let fullBoard = makeBoard();
+  let shipRecord = {};
+  let hitRecord = {};
+  let sunkRecord = {};
   const fleet = {
     5: 'Carrier',
     4: 'Battleship',
@@ -260,6 +260,7 @@ const Gameboard = () => {
     checkSunk,
     sunkRecord,
     placeBoundary,
+    makeBoard,
   };
 };
 
